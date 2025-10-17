@@ -2,4 +2,9 @@
 <resources>
     <string name="app_name">WeeklyBite</string>
     <string name="login_sign_up">Login / Sign Up</string>
+    <string name="title_activity_meal_plan">MealPlanActivity</string>
+    <string name="title_activity_day_adapter">DayAdapter</string>
+    <string name="title_activity_grocery_list">GroceryListActivity</string>
+    <string name="title_activity_grocery_adapter">GroceryAdapter</string>
+    <string name="title_activity_session_manager">SessionManager</string>
 </resources>

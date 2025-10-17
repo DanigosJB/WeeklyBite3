@@ -29,12 +29,20 @@ class LoginActivity : AppCompatActivity() {
 
             // TODO: Replace with real authentication.
             Toast.makeText(this, "Logged in as $email", Toast.LENGTH_SHORT).show()
+
+            // Mark session + go to Meal Plan, clearing the back stack
+            SessionManager.setLoggedIn(this, true)
+            startActivity(
+                Intent(this, com.example.weeklybite3.plan.MealPlanActivity::class.java).apply {
+                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                }
+            )
+            // finish() is redundant after CLEAR_TASK, but safe:
             finish()
         }
 
         tvToSignup.setOnClickListener {
-            val intent = Intent(this, SignupActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, SignupActivity::class.java))
         }
     }
 }

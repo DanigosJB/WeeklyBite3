@@ -5,24 +5,33 @@
         android:allowBackup="true"
         android:label="Weekly Bite"
         android:theme="@style/Theme.WeeklyBite">
-
+        <activity
+            android:name=".SessionManager"
+            android:exported="false"
+            android:label="@string/title_activity_session_manager"
+            android:theme="@style/Theme.WeeklyBite" />
+        <!-- Meal planning screens -->
+        <activity
+            android:name=".plan.GroceryListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".plan.MealPlanActivity"
+            android:exported="false" /> <!-- Your existing auth screens -->
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SignupActivity"
+            android:exported="false" /> <!-- Launcher -->
         <activity
             android:name=".LoginSignupActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".LoginActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".SignupActivity"
-            android:exported="false" />
-
     </application>
 
 </manifest>
