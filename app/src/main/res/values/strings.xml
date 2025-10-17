@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">WeeklyBite</string>
+    <string name="login_sign_up">Login / Sign Up</string>
+</resources>
