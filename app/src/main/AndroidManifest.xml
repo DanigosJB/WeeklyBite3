@@ -5,33 +5,55 @@
         android:allowBackup="true"
         android:label="Weekly Bite"
         android:theme="@style/Theme.WeeklyBite">
+
+        <!-- ✅ Step 4: Splash Screen as the launcher -->
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.WeeklyBite">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Utility -->
         <activity
             android:name=".SessionManager"
             android:exported="false"
             android:label="@string/title_activity_session_manager"
             android:theme="@style/Theme.WeeklyBite" />
+
         <!-- Meal planning screens -->
         <activity
             android:name=".plan.GroceryListActivity"
             android:exported="false" />
         <activity
             android:name=".plan.MealPlanActivity"
-            android:exported="false" /> <!-- Your existing auth screens -->
+            android:exported="false" />
+
+        <!-- Drawer pages -->
+        <activity
+            android:name=".plan.AccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".plan.SettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".plan.AboutActivity"
+            android:exported="false" />
+
+        <!-- Authentication screens -->
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
             android:name=".SignupActivity"
-            android:exported="false" /> <!-- Launcher -->
+            android:exported="false" />
         <activity
             android:name=".LoginSignupActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="false" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
     </application>
 
 </manifest>

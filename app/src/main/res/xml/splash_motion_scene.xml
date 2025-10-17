@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetStart="@id/start"
+        motion:constraintSetEnd="@id/end"
+        motion:duration="1100">
+
+        <!-- You can tweak easing if you want a bit more snap -->
+        <OnSwipe
+            motion:touchAnchorId="@id/coverCard"
+            motion:touchAnchorSide="bottom"
+            motion:dragDirection="dragUp" />
+    </Transition>
+
+    <!-- START: teal card fills the entire screen, square corners -->
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@id/coverCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent">
+
+            <!-- Animate the card’s corner radius -->
+            <CustomAttribute
+                motion:attributeName="cardCornerRadius"
+                motion:customDimension="0dp"/>
+        </Constraint>
+    </ConstraintSet>
+
+    <!-- END: pill button (240x64dp) centered, rounded corners -->
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@id/coverCard"
+            android:layout_width="240dp"
+            android:layout_height="64dp"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent">
+
+            <CustomAttribute
+                motion:attributeName="cardCornerRadius"
+                motion:customDimension="32dp"/>
+        </Constraint>
+    </ConstraintSet>
+
+</MotionScene>

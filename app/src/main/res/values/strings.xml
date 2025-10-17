@@ -7,4 +7,6 @@
     <string name="title_activity_grocery_list">GroceryListActivity</string>
     <string name="title_activity_grocery_adapter">GroceryAdapter</string>
     <string name="title_activity_session_manager">SessionManager</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
