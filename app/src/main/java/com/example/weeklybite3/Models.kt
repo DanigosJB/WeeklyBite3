@@ -1,9 +1,13 @@
-package com.example.weeklybite3.plan
+package com.example.weeklybite3
 
-import java.util.UUID
+// Which meal a slot represents
+enum class MealType(val label: String) {
+    Breakfast("Breakfast"),
+    Lunch("Lunch"),
+    Dinner("Dinner")
+}
 
-enum class MealType(val label: String) { Breakfast("Breakfast"), Lunch("Lunch"), Dinner("Dinner") }
-
+// One day's plan: name + map of meals (Breakfast/Lunch/Dinner → text or null)
 data class DayPlan(
     val name: String,
     val meals: MutableMap<MealType, String?> = mutableMapOf(
@@ -13,17 +17,15 @@ data class DayPlan(
     )
 )
 
-data class GroceryItem(
-    val id: String = UUID.randomUUID().toString(),
-    val name: String,
-    var bought: Boolean = false
-)
-
-/** Simple in-memory store so both screens share state */
+// In-memory week plan. You can later load this from a DB / API.
 object PlanRepository {
     val week: MutableList<DayPlan> = mutableListOf(
-        DayPlan("Monday"), DayPlan("Tuesday"), DayPlan("Wednesday"),
-        DayPlan("Thursday"), DayPlan("Friday"), DayPlan("Saturday"), DayPlan("Sunday")
+        DayPlan("Monday"),
+        DayPlan("Tuesday"),
+        DayPlan("Wednesday"),
+        DayPlan("Thursday"),
+        DayPlan("Friday"),
+        DayPlan("Saturday"),
+        DayPlan("Sunday")
     )
-    val groceries: MutableList<GroceryItem> = mutableListOf()
 }

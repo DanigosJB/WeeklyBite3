@@ -1,13 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="16dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Settings"
-        android:textSize="20sp"
-        android:textStyle="bold"/>
+    android:layout_height="match_parent"
+    android:background="@color/md_theme_light_background">
+
+    <!-- Top app bar -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/teal_500"
+        app:title="Settings"
+        app:titleTextColor="@android:color/white"
+        app:navigationIconTint="@android:color/white"
+        android:elevation="4dp" />
+
+    <!-- Scrollable content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Section: Account -->
+            <TextView
+                android:id="@+id/tvSectionAccount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Account"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:paddingTop="4dp"
+                android:paddingBottom="8dp" />
+
+            <TextView
+                android:id="@+id/tvAccountEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Signed in as: guest@gmail.com"
+                android:textSize="14sp"
+                android:padding="8dp"
+                android:background="@android:color/white"
+                android:elevation="1dp" />
+
+            <!-- Section: Preferences -->
+            <TextView
+                android:id="@+id/tvSectionPrefs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Preferences"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:paddingTop="20dp"
+                android:paddingBottom="8dp" />
+
+            <!-- Notifications switch -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="12dp"
+                android:background="@android:color/white"
+                android:elevation="1dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Login notifications"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Show a system notification after successful login."
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/switchNotifications"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!-- Daily reminder switch -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="12dp"
+                android:background="@android:color/white"
+                android:layout_marginTop="8dp"
+                android:elevation="1dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Daily meal reminder"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Remind me to review my meal plan each day."
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/switchReminders"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+            <!-- Section: App -->
+            <TextView
+                android:id="@+id/tvSectionApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="App"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:paddingTop="20dp"
+                android:paddingBottom="8dp" />
+
+            <!-- Reset settings button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnResetSettings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Reset to defaults"
+                style="@style/Widget.Material3.Button.OutlinedButton" />
+
+            <!-- Version info -->
+            <TextView
+                android:id="@+id/tvVersion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Weekly Bite • v1.0"
+                android:textSize="12sp"
+                android:gravity="center_horizontal"
+                android:paddingTop="24dp"
+                android:paddingBottom="4dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>

@@ -1,13 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="16dp"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="About Us"
-        android:textSize="20sp"
-        android:textStyle="bold"/>
-</LinearLayout>
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Page Title -->
+        <TextView
+            android:id="@+id/tvAboutTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="About Us"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#222222"
+            android:paddingBottom="12dp"/>
+
+        <!-- Card Section -->
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="18dp"
+            android:background="@drawable/bg_card_surface"
+            android:elevation="4dp">
+
+            <!-- App Purpose -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="WeeklyBite is designed to simplify your meal planning and grocery management. Our mission is to help users stay organized, save time, and reduce food waste through a clean and intuitive mobile experience."
+                android:textSize="15sp"
+                android:lineSpacingExtra="4dp"
+                android:textColor="#333333"/>
+
+            <!-- Spacer -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="18dp" />
+
+            <!-- Mission Title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Our Mission"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#222222"
+                android:paddingBottom="6dp"/>
+
+            <!-- Mission Description -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="We aim to provide a seamless and efficient way to plan meals, track grocery needs, and stay consistent with your daily food routines."
+                android:textSize="15sp"
+                android:lineSpacingExtra="4dp"
+                android:textColor="#333333"/>
+
+            <!-- Spacer -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="18dp" />
+
+            <!-- Team Title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="The Team"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#222222"
+                android:paddingBottom="6dp"/>
+
+            <!-- Team Description -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="WeeklyBite is built by a small, passionate group of developers focused on creating tools that make everyday life easier."
+                android:textSize="15sp"
+                android:lineSpacingExtra="4dp"
+                android:textColor="#333333"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

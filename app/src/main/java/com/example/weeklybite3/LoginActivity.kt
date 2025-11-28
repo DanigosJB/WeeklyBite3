@@ -1,6 +1,9 @@
 package com.example.weeklybite3
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.util.Patterns
 import android.view.Gravity
@@ -10,12 +13,17 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 
 class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        // ✅ Ask for notification permission (Android 13+)
+        ensureNotifPermission()
 
         val etEmail = findViewById<EditText>(R.id.etEmailLogin)
         val etPassword = findViewById<EditText>(R.id.etPasswordLogin)
@@ -37,18 +45,27 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            if (pass.length < 6) { // optional: simple password rule
+            if (pass.length < 6) { // simple password rule
                 showToast("Password must be at least 6 characters", isError = true)
                 return@setOnClickListener
             }
 
-            // ---- Auth (replace with real backend/Firebase) ----
+            // ---- Simulated Authentication ----
             val authOk = true
             if (authOk) {
                 showToast("Welcome, $email!")
                 SessionManager.setLoggedIn(this, true)
+
+                // ✅ Save email so Settings / Account screens can display it
+                val prefs = getSharedPreferences("weeklybite_settings", MODE_PRIVATE)
+                prefs.edit().putString("last_login_email", email).apply()
+
+                // ✅ Show welcome notification (intent + user communication)
+                NotificationHelper.showLoginSuccess(this, email)
+
+                // ✅ Explicit intent to MealPlanActivity
                 startActivity(
-                    Intent(this, com.example.weeklybite3.plan.MealPlanActivity::class.java).apply {
+                    Intent(this, MealPlanActivity::class.java).apply {
                         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     }
                 )
@@ -70,7 +87,28 @@ class LoginActivity : AppCompatActivity() {
                 && normalized.endsWith("@gmail.com")
     }
 
-    // ------- Custom Toast (success/error) -------
+    /**
+     * Ask for POST_NOTIFICATIONS permission on Android 13+.
+     * This allows NotificationHelper to show system notifications.
+     */
+    private fun ensureNotifPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            val granted = ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED
+
+            if (!granted) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                    999
+                )
+            }
+        }
+    }
+
+    /** Custom Toast (success/error) */
     private fun showToast(message: String, isError: Boolean = false) {
         val view = LayoutInflater.from(this).inflate(R.layout.view_toast, null)
         val tv = view.findViewById<TextView>(R.id.tvMessage)

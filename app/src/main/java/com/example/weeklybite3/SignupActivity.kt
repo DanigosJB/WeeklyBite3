@@ -16,11 +16,12 @@ class SignupActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
 
-        val etEmail = findViewById<EditText>(R.id.etEmailSignup)
-        val etPass = findViewById<EditText>(R.id.etPasswordSignup)
-        val etConfirm = findViewById<EditText>(R.id.etConfirmPasswordSignup)
-        val btnSignup = findViewById<Button>(R.id.btnSignupAction)
-        val tvToLogin = findViewById<TextView>(R.id.tvToLogin)
+        val etEmail = findViewById<EditText>(R.id.etEmail)
+        val etPass = findViewById<EditText>(R.id.etPassword)
+        val etConfirm = findViewById<EditText>(R.id.etConfirmPassword)
+        val btnSignup = findViewById<Button>(R.id.btnSignup)
+        val tvToLogin = findViewById<TextView>(R.id.tvLoginLink)
+
 
         btnSignup.setOnClickListener {
             val email = etEmail.text.toString().trim()

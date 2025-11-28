@@ -1,15 +1,14 @@
-package com.example.weeklybite3.plan
+package com.example.weeklybite3
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.weeklybite3.LoginSignupActivity
-import com.example.weeklybite3.SessionManager
 import com.example.weeklybite3.databinding.ActivityMealPlanBinding
 import com.google.android.material.snackbar.Snackbar
 
@@ -26,14 +25,15 @@ class MealPlanActivity : AppCompatActivity(), DayAdapter.Callbacks {
 
         // Toolbar + Drawer toggle
         setSupportActionBar(binding.toolbar)
-        supportActionBar?.title = "Weekly Meal Plan"
+        // ✅ Use strings.xml instead of hard-coded text
+        supportActionBar?.title = getString(R.string.title_activity_meal_plan)
 
         toggle = ActionBarDrawerToggle(
             this,
             binding.drawerLayout,
             binding.toolbar,
-            com.example.weeklybite3.R.string.navigation_drawer_open,
-            com.example.weeklybite3.R.string.navigation_drawer_close
+            R.string.navigation_drawer_open,
+            R.string.navigation_drawer_close
         )
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
@@ -54,19 +54,19 @@ class MealPlanActivity : AppCompatActivity(), DayAdapter.Callbacks {
         // Drawer item clicks (includes Logout)
         binding.navView.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                com.example.weeklybite3.R.id.nav_plan -> {
+                R.id.nav_plan -> {
                     // already here
                 }
-                com.example.weeklybite3.R.id.nav_account -> {
+                R.id.nav_account -> {
                     startActivity(Intent(this, AccountActivity::class.java))
                 }
-                com.example.weeklybite3.R.id.nav_settings -> {
+                R.id.nav_settings -> {
                     startActivity(Intent(this, SettingsActivity::class.java))
                 }
-                com.example.weeklybite3.R.id.nav_about -> {
+                R.id.nav_about -> {
                     startActivity(Intent(this, AboutActivity::class.java))
                 }
-                com.example.weeklybite3.R.id.nav_logout -> {
+                R.id.nav_logout -> {
                     SessionManager.logout(this)
                     startActivity(Intent(this, LoginSignupActivity::class.java).apply {
                         flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -79,10 +79,40 @@ class MealPlanActivity : AppCompatActivity(), DayAdapter.Callbacks {
         }
     }
 
-    // Let the drawer toggle handle the hamburger click
+    // Toolbar menu: "Share Plan"
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_meal_plan, menu)
+        return true
+    }
+
+    // Hamburger + share action
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (toggle.onOptionsItemSelected(item)) return true
-        return super.onOptionsItemSelected(item)
+
+        return when (item.itemId) {
+            R.id.action_share -> {
+                val planText = buildString {
+                    appendLine("My Weekly Meal Plan:")
+                    appendLine()
+                    PlanRepository.week.forEach { day ->
+                        appendLine("${day.name}:")
+                        appendLine("  Breakfast: ${day.meals[MealType.Breakfast] ?: "—"}")
+                        appendLine("  Lunch:     ${day.meals[MealType.Lunch] ?: "—"}")
+                        appendLine("  Dinner:    ${day.meals[MealType.Dinner] ?: "—"}")
+                        appendLine()
+                    }
+                }
+
+                val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_SUBJECT, "Weekly Meal Plan")
+                    putExtra(Intent.EXTRA_TEXT, planText)
+                }
+                startActivity(Intent.createChooser(shareIntent, "Share using"))
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     @Deprecated("Using legacy back press for simplicity with DrawerLayout")
@@ -94,10 +124,12 @@ class MealPlanActivity : AppCompatActivity(), DayAdapter.Callbacks {
         }
     }
 
+    // -------- DayAdapter.Callbacks --------
+
     override fun onAddMeal(dayPos: Int, type: MealType) {
-        val edit = layoutInflater.inflate(com.example.weeklybite3.R.layout.dialog_edit_text, null)
+        val edit = layoutInflater.inflate(R.layout.dialog_edit_text, null)
         val input = edit.findViewById<com.google.android.material.textfield.TextInputEditText>(
-            com.example.weeklybite3.R.id.etInput
+            R.id.etInput
         )
         AlertDialog.Builder(this)
             .setTitle("${PlanRepository.week[dayPos].name} • ${type.label}")
@@ -115,7 +147,9 @@ class MealPlanActivity : AppCompatActivity(), DayAdapter.Callbacks {
     }
 
     override fun onClearDay(dayPos: Int) {
-        PlanRepository.week[dayPos].meals.keys.forEach { PlanRepository.week[dayPos].meals[it] = null }
+        PlanRepository.week[dayPos].meals.keys.forEach {
+            PlanRepository.week[dayPos].meals[it] = null
+        }
         adapter.notifyItemChanged(dayPos)
     }
 }

@@ -1,14 +1,13 @@
-package com.example.weeklybite3.plan
+package com.example.weeklybite3
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weeklybite3.databinding.ItemDayBinding
+import com.google.android.material.card.MaterialCardView
 
 class DayAdapter(
-    private val items: List<DayPlan>,
+    private val days: List<DayPlan>,
     private val callbacks: Callbacks
 ) : RecyclerView.Adapter<DayAdapter.VH>() {
 
@@ -17,35 +16,59 @@ class DayAdapter(
         fun onClearDay(dayPos: Int)
     }
 
-    inner class VH(val b: ItemDayBinding) : RecyclerView.ViewHolder(b.root)
+    inner class VH(val binding: ItemDayBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        val b = ItemDayBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return VH(b)
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ItemDayBinding.inflate(inflater, parent, false)
+        return VH(binding)
     }
 
-    override fun getItemCount() = items.size
+    override fun getItemCount(): Int = days.size
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        val day = items[position]
-        val b = holder.b
-        b.tvDay.text = day.name
+        val binding = holder.binding
+        val day = days[position]
 
-        fun bindSlot(container: View, labelView: TextView, type: MealType) {
-            val value = day.meals[type]
+        // Day name
+        binding.tvDayName.text = day.name
+
+        // Clear button
+        binding.tvClear.setOnClickListener {
+            callbacks.onClearDay(holder.adapterPosition)
+        }
+
+        // Helper to wire each meal card
+        fun bindMeal(
+            card: MaterialCardView,
+            valueView: android.widget.TextView,
+            mealType: MealType
+        ) {
+            // Label text from enum (Breakfast, Lunch, Dinner)
+            // if you prefer static text, leave your XML labels instead
+            when (mealType) {
+                MealType.Breakfast -> binding.tvBreakfast.text = mealType.label
+                MealType.Lunch -> binding.tvLunch.text = mealType.label
+                MealType.Dinner -> binding.tvDinner.text = mealType.label
+            }
+
+            val value = day.meals[mealType]
             if (value.isNullOrBlank()) {
-                labelView.text = type.label
-                container.setOnClickListener { callbacks.onAddMeal(position, type) }
+                valueView.text = "Add meal"
+                valueView.setTextColor(0xFF999999.toInt())
             } else {
-                labelView.text = value
-                container.setOnClickListener(null)
+                valueView.text = value
+                valueView.setTextColor(0xFF444444.toInt())
+            }
+
+            card.setOnClickListener {
+                callbacks.onAddMeal(holder.adapterPosition, mealType)
             }
         }
 
-        bindSlot(b.cardBreakfast, b.tvBreakfast, MealType.Breakfast)
-        bindSlot(b.cardLunch, b.tvLunch, MealType.Lunch)
-        bindSlot(b.cardDinner, b.tvDinner, MealType.Dinner)
-
-        b.btnClear.setOnClickListener { callbacks.onClearDay(position) }
+        // Bind the three meal “pills”
+        bindMeal(binding.cardBreakfast, binding.tvBreakfastValue, MealType.Breakfast)
+        bindMeal(binding.cardLunch, binding.tvLunchValue, MealType.Lunch)
+        bindMeal(binding.cardDinner, binding.tvDinnerValue, MealType.Dinner)
     }
 }

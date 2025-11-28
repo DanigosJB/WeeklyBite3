@@ -1,32 +1,60 @@
-package com.example.weeklybite3.plan
+package com.example.weeklybite3
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weeklybite3.databinding.ItemGroceryBinding
 
+data class GroceryItem(
+    val name: String,
+    val category: String = "",
+    val quantity: Int = 1,
+    var done: Boolean = false
+)
+
 class GroceryAdapter(
-    private val items: List<GroceryItem>,
-    private val callbacks: Callbacks
+    private val items: MutableList<GroceryItem>,
+    private val onItemChecked: (Int) -> Unit,
+    private val onItemDelete: (Int) -> Unit
 ) : RecyclerView.Adapter<GroceryAdapter.VH>() {
 
-    interface Callbacks { fun onToggleBought(position: Int) }
-
-    inner class VH(val b: ItemGroceryBinding) : RecyclerView.ViewHolder(b.root)
+    inner class VH(val binding: ItemGroceryBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-        val b = ItemGroceryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return VH(b)
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ItemGroceryBinding.inflate(inflater, parent, false)
+        return VH(binding)
     }
-
-    override fun getItemCount() = items.size
 
     override fun onBindViewHolder(holder: VH, position: Int) {
         val item = items[position]
-        holder.b.tvName.text = item.name
-        holder.b.cbBought.isChecked = item.bought
-        holder.b.cbBought.setOnCheckedChangeListener { _, _ ->
-            callbacks.onToggleBought(holder.adapterPosition)
+        val b = holder.binding
+
+        b.tvName.text = item.name
+        b.tvCategory.text = if (item.category.isNotBlank()) item.category else "General"
+        b.tvQuantity.text = "x${item.quantity}"
+
+        if (item.done) {
+            b.ivDone.setImageResource(android.R.drawable.checkbox_on_background)
+            b.tvName.alpha = 0.5f
+            b.tvCategory.alpha = 0.5f
+        } else {
+            b.ivDone.setImageResource(android.R.drawable.checkbox_off_background)
+            b.tvName.alpha = 1f
+            b.tvCategory.alpha = 1f
+        }
+
+        b.ivDone.setOnClickListener {
+            item.done = !item.done
+            notifyItemChanged(position)
+            onItemChecked(position)
+        }
+
+        holder.itemView.setOnLongClickListener {
+            onItemDelete(position)
+            true
         }
     }
+
+    override fun getItemCount(): Int = items.size
 }

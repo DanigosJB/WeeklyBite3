@@ -1,19 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/nav_plan"
-        android:title="My Plan" />
-    <item
-        android:id="@+id/nav_account"
-        android:title="Account" />
-    <item
-        android:id="@+id/nav_settings"
-        android:title="Settings" />
-    <item
-        android:id="@+id/nav_about"
-        android:title="About Us" />
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_plan"
+            android:icon="@android:drawable/ic_menu_agenda"
+            android:title="My Plan" />
+
+        <item
+            android:id="@+id/nav_account"
+            android:icon="@android:drawable/ic_menu_myplaces"
+            android:title="Account" />
+
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@android:drawable/ic_menu_manage"
+            android:title="Settings" />
+
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@android:drawable/ic_menu_info_details"
+            android:title="About Us" />
+    </group>
 
     <item
         android:id="@+id/nav_logout"
-        android:title="Logout" />
+        android:title="Logout"
+        android:icon="@android:drawable/ic_lock_power_off" />
+
 </menu>

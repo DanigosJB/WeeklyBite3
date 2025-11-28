@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="150dp"
-    android:background="?attr/colorPrimary"
     android:orientation="vertical"
-    android:gravity="center"
-    android:padding="16dp">
+    android:layout_width="match_parent"
+    android:layout_height="180dp"
+    android:gravity="bottom"
+    android:padding="16dp"
+    android:background="@color/md_theme_light_primary">
 
     <TextView
-        android:text="Weekly Bite"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/white"
+        android:id="@+id/tvHeaderTitle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="WeeklyBite"
+        android:textColor="@android:color/white"
+        android:textSize="22sp"
+        android:textStyle="bold" />
 
     <TextView
-        android:text="Meal Planner App"
+        android:id="@+id/tvHeaderSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Plan. Shop. Eat better."
+        android:textColor="@android:color/white"
         android:textSize="14sp"
-        android:textColor="@android:color/white"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_marginTop="4dp" />
 
 </LinearLayout>

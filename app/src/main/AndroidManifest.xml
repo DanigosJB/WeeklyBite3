@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- Notifications (Android 13+) -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:allowBackup="true"
         android:label="Weekly Bite"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/Theme.WeeklyBite">
 
-        <!-- ✅ Step 4: Splash Screen as the launcher -->
+        <!-- 🚀 LAUNCHER: Splash screen -->
         <activity
             android:name=".SplashActivity"
             android:exported="true"
@@ -17,33 +22,31 @@
             </intent-filter>
         </activity>
 
-        <!-- Utility -->
+        <!-- 🏠 DASHBOARD -->
         <activity
-            android:name=".SessionManager"
-            android:exported="false"
-            android:label="@string/title_activity_session_manager"
-            android:theme="@style/Theme.WeeklyBite" />
-
-        <!-- Meal planning screens -->
-        <activity
-            android:name=".plan.GroceryListActivity"
-            android:exported="false" />
-        <activity
-            android:name=".plan.MealPlanActivity"
+            android:name=".MainActivity"
             android:exported="false" />
 
-        <!-- Drawer pages -->
+        <!-- 📦 Grocery & Meal Planner -->
         <activity
-            android:name=".plan.AccountActivity"
+            android:name=".GroceryListActivity"
             android:exported="false" />
         <activity
-            android:name=".plan.SettingsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".plan.AboutActivity"
+            android:name=".MealPlanActivity"
             android:exported="false" />
 
-        <!-- Authentication screens -->
+        <!-- 🧑 User Pages -->
+        <activity
+            android:name=".AccountActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AboutActivity"
+            android:exported="false" />
+
+        <!-- 🔐 Authentication -->
         <activity
             android:name=".LoginActivity"
             android:exported="false" />
@@ -52,6 +55,11 @@
             android:exported="false" />
         <activity
             android:name=".LoginSignupActivity"
+            android:exported="false" />
+
+        <!-- ⚙️ Utility class (not an activity, but harmless to keep declared if used) -->
+        <activity
+            android:name=".SessionManager"
             android:exported="false" />
 
     </application>
