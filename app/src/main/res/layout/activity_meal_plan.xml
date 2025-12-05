@@ -7,11 +7,11 @@
     android:layout_height="match_parent"
     tools:context=".MealPlanActivity">
 
-    <!-- MAIN CONTENT AREA -->
+    <!-- MAIN CONTENT -->
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <!-- Toolbar -->
         <com.google.android.material.appbar.MaterialToolbar
@@ -19,97 +19,82 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/md_theme_light_primary"
-            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
-            app:titleTextAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:theme="@style/ThemeOverlay.Material3.Dark.ActionBar"
             app:title="@string/title_activity_meal_plan"
-            app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light"
+            app:titleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
             android:elevation="4dp" />
 
-        <!-- Scrollable content -->
-        <ScrollView
+        <!-- Hero card (static header) -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tvWeekLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_this_week"
+                    android:textColor="@color/md_theme_light_primary"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvWeekHint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/dashboard_subtitle"
+                    android:textColor="@color/md_theme_light_secondary"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- DAYS LIST (scrolls) -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvDays"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:padding="16dp"
-            android:paddingBottom="8dp">
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="8dp"
+            android:clipToPadding="false"
+            tools:listitem="@layout/item_day" />
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <!-- Hero Card -->
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="4dp">
-
-                    <LinearLayout
-                        android:padding="16dp"
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:id="@+id/tvWeekLabel"
-                            android:text="@string/label_this_week"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/md_theme_light_primary"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
-                        <TextView
-                            android:id="@+id/tvWeekHint"
-                            android:layout_marginTop="4dp"
-                            android:text="@string/dashboard_subtitle"
-                            android:textColor="@color/md_theme_light_secondary"
-                            android:textSize="14sp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- Recycler of Days -->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvDays"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:nestedScrollingEnabled="false" />
-
-            </LinearLayout>
-        </ScrollView>
-
-        <!-- BOTTOM NAV BUTTONS -->
+        <!-- BOTTOM SEGMENTED BUTTONS -->
         <LinearLayout
-            android:id="@+id/bottom_nav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="16dp"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="16dp">
 
-            <!-- Current screen: Meal Plan -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnMealPlan"
+                style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
-                android:layout_weight="1"
                 android:layout_marginEnd="8dp"
+                android:layout_weight="1"
                 android:text="@string/action_open_meal_plan"
                 android:textAllCaps="false"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:textColor="@color/md_theme_light_primary"
                 app:cornerRadius="24dp"
                 app:strokeColor="@color/md_theme_light_primary"
-                app:strokeWidth="2dp"
-                app:backgroundTint="@android:color/transparent" />
+                app:strokeWidth="1dp" />
 
-            <!-- Other screen: Grocery List -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnGrocery"
                 android:layout_width="0dp"
@@ -117,7 +102,7 @@
                 android:layout_weight="1"
                 android:text="@string/action_view_grocery"
                 android:textAllCaps="false"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:textColor="@android:color/white"
                 app:cornerRadius="24dp"
                 app:backgroundTint="@color/md_theme_light_primary" />
@@ -125,16 +110,12 @@
 
     </LinearLayout>
 
-    <!-- ENABLED NAVIGATION DRAWER -->
+    <!-- NAV DRAWER -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navView"
-        android:layout_width="280dp"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:headerLayout="@layout/nav_header"
-        app:menu="@menu/menu_drawer"
-        android:background="#FAFAFA"
-        app:itemIconTint="@color/md_theme_light_primary"
-        app:itemTextColor="@android:color/black" />
+        app:menu="@menu/menu_drawer" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -16,13 +16,15 @@
         android:gravity="center_vertical"
         android:padding="12dp">
 
-        <!-- DONE ICON -->
+        <!-- DONE ICON (toggled in adapter) -->
         <ImageView
             android:id="@+id/ivDone"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginEnd="12dp"
-            android:src="@android:drawable/checkbox_off_background" />
+            android:src="@android:drawable/checkbox_off_background"
+            android:tint="@color/md_theme_light_primary"
+            android:contentDescription="@string/grocery_mark_done" />
 
         <!-- NAME + CATEGORY -->
         <LinearLayout

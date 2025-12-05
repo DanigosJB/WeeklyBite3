@@ -1,13 +1,13 @@
 package com.example.weeklybite3
 
-// Which meal a slot represents
+// Which meal a card represents
 enum class MealType(val label: String) {
     Breakfast("Breakfast"),
     Lunch("Lunch"),
     Dinner("Dinner")
 }
 
-// One day's plan: name + map of meals (Breakfast/Lunch/Dinner → text or null)
+// One day in the weekly plan
 data class DayPlan(
     val name: String,
     val meals: MutableMap<MealType, String?> = mutableMapOf(
@@ -17,9 +17,17 @@ data class DayPlan(
     )
 )
 
-// In-memory week plan. You can later load this from a DB / API.
+// ✅ Single, final version of GroceryItem used everywhere
+data class GroceryItem(
+    val name: String,
+    val category: String = "Misc",
+    val quantity: Int = 1,
+    var isChecked: Boolean = false
+)
+
+// Weekly meal plan repository
 object PlanRepository {
-    val week: MutableList<DayPlan> = mutableListOf(
+    val week = mutableListOf(
         DayPlan("Monday"),
         DayPlan("Tuesday"),
         DayPlan("Wednesday"),
@@ -28,4 +36,9 @@ object PlanRepository {
         DayPlan("Saturday"),
         DayPlan("Sunday")
     )
+}
+
+// Grocery list repository (shared by UI + adapter)
+object GroceryRepository {
+    val items = mutableListOf<GroceryItem>()
 }

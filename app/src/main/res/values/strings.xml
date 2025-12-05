@@ -32,7 +32,6 @@
     <string name="dashboard_subtitle">Plan meals. Shop smarter.</string>
 
     <!-- Quick actions section -->
-    <!-- Old + new ids, both provided so activity_main.xml is happy -->
     <string name="dashboard_quick_actions">Quick actions</string>
     <string name="dashboard_quick_actions_title">Quick actions</string>
     <string name="dashboard_quick_actions_hint">
@@ -44,8 +43,7 @@
     <string name="action_view_grocery_list">View Grocery List</string>
     <string name="action_account_settings">Account &amp; Settings</string>
 
-    <!-- Tip card on dashboard -->
-    <!-- Old + new ids, both mapped to same visible text -->
+    <!-- Tip card -->
     <string name="dashboard_tip_title">Did you know?</string>
     <string name="dashboard_tip_header">Did you know?</string>
     <string name="dashboard_tip_body">
@@ -61,8 +59,11 @@
     <!-- Meal Plan hero text -->
     <string name="label_this_week">This Week</string>
 
-    <!-- Bottom buttons on MealPlanActivity -->
+    <!-- Bottom buttons -->
     <string name="btn_meal_plan_label">Meal Plan</string>
     <string name="action_view_grocery">Grocery List</string>
+
+    <!-- Grocery item -->
+    <string name="grocery_mark_done">Mark item as done</string>
 
 </resources>
